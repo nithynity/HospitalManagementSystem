@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name="user_login")
 public class UserLogin {
@@ -19,15 +21,21 @@ public String userName;
 @Column(name="password")
 public String password;
 
-@Column(name="user_role")
-public int userRole;
+@ManyToOne
+@JoinColumn(name="user_role", updatable=false, nullable=false)
+public UserType userRole;
+
+
+public UserType getUserRole() {
+	return userRole;
+}
+
+public void setUserRole(UserType userRole) {
+	this.userRole = userRole;
+}
 
 public int getUserId() {
 	return userId;
-}
-
-public void setUserId(int userId) {
-	this.userId = userId;
 }
 
 public String getUserName() {
@@ -46,13 +54,7 @@ public void setPassword(String password) {
 	this.password = password;
 }
 
-public int getUserRole() {
-	return userRole;
-}
 
-public void setUserRole(int userRole) {
-	this.userRole = userRole;
-}
 
 @Override
 public String toString() {
